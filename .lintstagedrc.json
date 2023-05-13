@@ -1,4 +1,4 @@
 {
-    ".{js,ts}": ["prettier --list-different", "eslint --fix"],
+    ".{js,ts,jsx,tsx}": ["prettier --list-different", "eslint --fix"],
     ".{md,json}": ["prettier --list-different"]
 }
