@@ -8,6 +8,14 @@ module.exports = {
                 'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
             },
         },
+        colors: {
+            lavender: '#F7EDF0',
+            rose: '#F4CBC6',
+            melon: '#F4AFAB',
+            wenge: '#725D68',
+            night: '#0C0C0C',
+            violet: '#585191',
+        },
     },
     plugins: [],
 };
