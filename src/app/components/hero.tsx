@@ -4,12 +4,12 @@ import mountains from '../../../public/images/mountains.jpg';
 import hair1 from '../../../public/images/hair-1.jpg';
 import hair2 from '../../../public/images/hair-2.jpg';
 import { useState } from 'react';
-import Image from 'next/image';
 import styles from './hero.module.scss';
 import { Button } from '../library/button';
+import { Carousel, CarouselItem } from '../library/carousel';
 
 type BundleImage = { src: string; alt: string };
-type Bundle = { background: BundleImage; carousel: BundleImage; title: string; caption: string };
+type Bundle = { background: BundleImage; carousel: CarouselItem; title: string; caption: string };
 const images: Bundle[] = [
     {
         title: 'Hair 1',
@@ -19,7 +19,7 @@ const images: Bundle[] = [
         carousel: { src: hair1.src, alt: 'Hair 1' },
     },
     {
-        title: 'Hair 1',
+        title: 'Hair 2',
         caption:
             'Vestibulum vitae mi a odio viverra ornare. Nunc consequat pharetra risus nec convallis. Ut dictum eu tortor nec aliquam. Proin suscipit enim eu lorem rhoncus, eget rutrum odio semper. Nulla volutpat egestas dolor, in mattis eros maximus vel. Nullam venenatis ac nisi nec ullamcorper. Donec lorem nunc, eleifend sed sollicitudin vel, porta a lectus. Vestibulum commodo ullamcorper nisi, eget tristique tellus ultricies id. Fusce arcu libero, blandit tincidunt ligula interdum, ullamcorper tincidunt quam. Nulla pulvinar tellus eget mauris scelerisque, in iaculis quam pellentesque. Nulla efficitur elit ante, et dignissim nunc malesuada ac. Etiam eu leo pulvinar, condimentum tortor at, bibendum purus. Nam scelerisque leo risus, sit amet imperdiet nisl euismod at. Duis risus turpis, tincidunt at augue at, tristique dignissim tellus. Integer cursus ornare eros, in vehicula nunc sodales et.',
         background: { src: mountains.src, alt: 'Mountains' },
@@ -43,33 +43,24 @@ export default function Hero() {
                 onAnimationEnd={() => setAnimation('')}
                 style={{ backgroundImage: `url(${background.src})` }}
             >
-                <div className="flex pt-20">
-                    <div className="flex flex-col">
-                        <span className="text-[14rem]">{title}</span>
+                <div className="grid grid-cols-12 grid-rows-5 gap-4 pt-20 min-h-screen ">
+                    <div className="row-span-5 bg-blue-500/50">
+                        <span></span>
+                    </div>
+                    <div className="col-span-5 row-span-5 bg-green-500/50">
+                        <span className="text-[12rem]">{title}</span>
+                        <br />
                         <span>{caption}</span>
                     </div>
-                    <div className="flex flex-col">
-                        <CarouselItem {...carousel} />
+                    <div className="col-span-6 row-span-5 bg-red-500/50">
+                        <Carousel items={images.map((i) => i.carousel)} active={index} />
                         <div className="d-flex flex-row">
                             <Button onClick={nextIndex}>Left</Button>
                             <Button onClick={nextIndex}>Right</Button>
                         </div>
                     </div>
                 </div>
-                {/* <div className="grid grid-rows-3 grid-cols-[200px_minmax(900px,_1fr)_100px] gap-4 h-max w-max">
-                    <div className="row-span-3 bg-red-800">01</div>
-                    <div className="col-span-2 bg-green-800">02</div>
-                    <div className="row-span-2 col-span-2 bg-blue-800">03</div>
-                </div> */}
             </div>
         </>
-    );
-}
-
-function CarouselItem({ src, alt }: { src: string; alt: string }) {
-    return (
-        <div className="relative" style={{ width: '15rem', height: '22.5rem' }}>
-            <Image rel="preload" className="rounded object-cover" src={src} alt={alt} fill={true} />
-        </div>
     );
 }
