@@ -3,10 +3,11 @@ import whiteFlowers from '../../../public/images/white-flowers.jpg';
 import mountains from '../../../public/images/mountains.jpg';
 import hair1 from '../../../public/images/hair-1.jpg';
 import hair2 from '../../../public/images/hair-2.jpg';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import styles from './hero.module.scss';
 import { Button } from '../library/button';
 import { Carousel, CarouselItem } from '../library/carousel';
+import { VerticalStepper } from './vertical-stepper';
 
 type BundleImage = { src: string; alt: string };
 type Bundle = { background: BundleImage; carousel: CarouselItem; title: string; caption: string };
@@ -28,24 +29,28 @@ const images: Bundle[] = [
 ];
 
 export default function Hero() {
-    const { zoom } = styles;
     const [index, setIndex] = useState(0);
-    const [animation, setAnimation] = useState(zoom);
+    const [animation, setAnimation] = useState(styles['zoom-init']);
     const { title, caption, background, carousel } = images[index];
     const nextIndex = () => {
         setIndex((index + 1) % images.length);
-        setAnimation(zoom);
+        setAnimation(styles['zoom-enter']);
     };
+
+    const leftBar = images.map((item) => item.title);
     return (
         <>
+            <div className="w-full bg-primary/0 text-white border-solid border-2 rounded p-2">
+                <span>Samantha</span>
+            </div>
             <div
                 className={'text-white bg-center bg-[length:100%_100%] min-h-screen ' + animation}
                 onAnimationEnd={() => setAnimation('')}
                 style={{ backgroundImage: `url(${background.src})` }}
             >
-                <div className="grid grid-cols-12 grid-rows-5 gap-4 pt-20 min-h-screen ">
+                <div className="grid grid-cols-12 grid-rows-5 gap-4 pt-20 min-h-screen px-5">
                     <div className="row-span-5 bg-blue-500/50">
-                        <span></span>
+                        <VerticalStepper items={leftBar} active={index} />
                     </div>
                     <div className="col-span-5 row-span-5 bg-green-500/50">
                         <span className="text-[12rem]">{title}</span>
