@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { EB_Garamond } from 'next/font/google';
 import { Providers } from './providers';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
 const font = EB_Garamond({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
